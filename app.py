@@ -14,9 +14,6 @@ ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png', 'gif'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
-
-
-
 # Load the saved weights and biases from the binary file
 loaded_network = np.load('neural_network_weights.npy', allow_pickle=True).item()
 
@@ -72,7 +69,6 @@ def index():
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
-
     if 'file' not in request.files:
         return redirect(request.url)
 
@@ -89,9 +85,9 @@ def upload_file():
 
         os.remove(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-        return f'The Predicted ASL Sign is: {pred}'
+        return render_template('index.html', prediction=pred)
     else:
-        return 'Invalid file format. Allowed formats are jpg, jpeg, png, and gif.'
+        return render_template('index.html', error='Invalid file format. Allowed formats are jpg, jpeg, png, and gif.')
 
 if __name__ == '__main__':
     if not os.path.exists(UPLOAD_FOLDER):
