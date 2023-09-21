@@ -66,12 +66,26 @@
 </head>
 <body>
     <h1>ASL Sign Prediction</h1>
+
+    <div class="container">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Asl_alphabet_gallaudet.svg/800px-Asl_alphabet_gallaudet.svg.png" alt="ASL Alphabet">
+    </div>
+
+    <br>
+    <br>
+    <br>
+
     <div class="container">
         {% if prediction %}
             <p class="result">The Predicted ASL Sign is: {{ prediction }}</p>
         {% elif error %}
             <p class="error">{{ error }}</p>
         {% endif %}
+        
+        {% if uploaded_image %}
+            <img src="{{ uploaded_image }}" alt="Uploaded Image" style="max-width: 100%; height: auto;">
+        {% endif %}
+    
         <form method="POST" enctype="multipart/form-data" action="/upload">
             <input type="file" name="file">
             <br>
