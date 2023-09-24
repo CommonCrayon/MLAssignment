@@ -27,6 +27,15 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
+        .container-example {
+            background-color: #fff;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
         .result {
             font-size: 18px;
             margin-top: 20px;
@@ -65,25 +74,15 @@
     </style>
 </head>
 <body>
-    <h1>ASL Sign Prediction</h1>
+    <h1>ASL Sign Predictor</h1>
 
     <div class="container">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Asl_alphabet_gallaudet.svg/800px-Asl_alphabet_gallaudet.svg.png" alt="ASL Alphabet">
-    </div>
+        <h2>Upload an Image to Predict</h2>
 
-    <br>
-    <br>
-    <br>
-
-    <div class="container">
         {% if prediction %}
             <p class="result">The Predicted ASL Sign is: {{ prediction }}</p>
         {% elif error %}
             <p class="error">{{ error }}</p>
-        {% endif %}
-        
-        {% if uploaded_image %}
-            <img src="{{ uploaded_image }}" alt="Uploaded Image" style="max-width: 100%; height: auto;">
         {% endif %}
     
         <form method="POST" enctype="multipart/form-data" action="/upload">
@@ -92,5 +91,16 @@
             <input type="submit" value="Upload">
         </form>
     </div>
+
+    <br>
+    <br>
+    <br>
+
+    <div class="container-example">
+        <h2>ASL Example</h2>
+        <img src="{{ url_for('static', filename='images/asl_example.png') }}" alt="ASL Example" width="850" height="474">
+    </div>
+
+    <p style="color: white;">Made by Talha Ahmed</p>
 </body>
 </html>

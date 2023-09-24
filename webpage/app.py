@@ -17,21 +17,20 @@ def index():
 @app.route('/upload', methods=['POST'])
 def upload_file():
     if 'file' not in request.files:
-        return redirect(request.url)
+        return render_template('index.html', error='No file selected.')
 
     file = request.files['file']
 
     if file.filename == '':
-        return redirect(request.url)
+        return render_template('index.html', error='No file selected.')
 
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
         file.save(filename)
-        
         pred = predict.get_prediction(filename)
-        #os.remove(filename)
+        os.remove(filename)
 
-        return render_template('index.html', prediction=pred, uploaded_image=filename)
+        return render_template('index.html', prediction=pred)
     else:
         return render_template('index.html', error='Invalid file format. Allowed formats are jpg, jpeg, png, and gif.')
 
